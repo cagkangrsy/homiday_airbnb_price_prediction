@@ -1,12 +1,7 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import warnings
-import re
-import datetime as dt
 from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import MinMaxScaler, LabelEncoder, StandardScaler, RobustScaler
 
 def model_preprocessing(dataframe, dataframe_city, dataframe_main):
     dataframe['NEW_amenities_length'] = dataframe['amenities'].apply(lambda x: len(x))
