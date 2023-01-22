@@ -184,5 +184,5 @@ def main ():
             st.write("----------------")
             st.map(features[["latitude","longitude"]])
         except:
-            st.write("Please choose a location")
+            st.subheader("Please choose a location on the map!")
 main()
