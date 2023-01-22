@@ -81,6 +81,9 @@ def main ():
         lat = df_coord[df_coord["city"] == city]["lat"][df_coord[df_coord["city"] == city].index[0]]
         lon = df_coord[df_coord["city"] == city]["lon"][df_coord[df_coord["city"] == city].index[0]]
         return lat,lon
+    
+    def get_pos(lat,lng):
+        return lat,lng
 
     # Defining a map at the city center
     lat,lon = get_coord()
@@ -97,17 +100,10 @@ def main ():
     m.add_child(fl.LatLngPopup())
     m.add_child(fl.ClickForLatLng(alert=False))
     
-    try:
-        latitude = float(clp.paste().split(",")[0])
-        longitude = float(clp.paste().split(",")[1])
-    except:
-        clp.copy(f"{lat},{lon}")
-        latitude = float(clp.paste().split(",")[0])
-        longitude = float(clp.paste().split(",")[1])
-
-    data = (latitude,longitude)
-    m.add_child(fl.Marker(data))
-    m.add_child(fl.LatLngPopup())
+    map1 = st_folium(m, height=350, width=700)
+    
+    latitude, longitude = get_pos(map1['last_clicked']['lat'],map1['last_clicked']['lng'])
+    data1 = (latitude,longitude)
 
     formatter = "function(num) {return L.Util.formatNum(num, 3) + ' ° ';};"
 
@@ -121,9 +117,6 @@ def main ():
     lat_formatter=formatter,
     lng_formatter=formatter).add_to(m)
    
-    # Plotting the map
-    st_folium(m,height=500, width=1200,center=(lat,lon))
-
     start_cont = st.container()
     start_cont.title('🏘️ Welcome to the AirBnb Price Predictor')
     start_cont.markdown( 'Give the properties of your house, find out at what price you can advertise.')
