@@ -111,76 +111,78 @@ def main ():
 
     # Defining the price prediction model and button
     if st.button(label = 'Get Recommended Price', type='primary'):
+        try:
+            main_df = df.drop("price", axis=1)
 
-        main_df = df.drop("price", axis=1)
-        
-        def instant_bookable_return():
-            if instant_bookable == "Yes":
-                return "t"
-            else:
-                return "f"
-        
-        data = [{'host_response_rate': main_df ['host_response_rate'].median(),
-        'host_acceptance_rate': main_df ['host_acceptance_rate'].median(),
-        'host_listings_count': main_df ['host_listings_count'].median(),
-        'host_total_listings_count': main_df ['host_total_listings_count'].median(),
-        'latitude': latitude,
-        'longitude': longitude,
-        'accommodates': guests,
-        'bathrooms': bathrooms,
-        'bathrooms_type': bathrooms_type.lower(),
-        'bedrooms': bedrooms,
-        'beds': beds,
-        'minimum_nights_avg_ntm': min_night,
-        'maximum_nights_avg_ntm': max_night,
-        'availability_30': availability,
-        'availability_60': availability*2,
-        'availability_90': availability*3,
-        'availability_365': availability*12,
-        'number_of_reviews': main_df ["number_of_reviews"].median(),
-        'number_of_reviews_ltm': main_df ["number_of_reviews_ltm"].median(),
-        'review_scores_rating': main_df ["review_scores_rating"].mean(),
-        'review_scores_accuracy': main_df ["review_scores_accuracy"].mean(),
-        'review_scores_cleanliness': main_df ["review_scores_cleanliness"].mean(),
-        'review_scores_checkin': main_df ["review_scores_checkin"].mean(),
-        'review_scores_communication': main_df ["review_scores_communication"].mean(),
-        'review_scores_location': main_df ["review_scores_location"].mean(),
-        'review_scores_value': main_df ["review_scores_value"].mean(),
-        'calculated_host_listings_count': main_df ["calculated_host_listings_count"].median(),
-        'reviews_per_month': main_df ["reviews_per_month"].median(),
-        'property_type': property_type.lower(),
-        'room_type': room_type,
-        'instant_bookable': instant_bookable_return(),
-        'amenities': amenities,
-        'city': city}]
-        
-        features = pd.DataFrame(data)
+            def instant_bookable_return():
+                if instant_bookable == "Yes":
+                    return "t"
+                else:
+                    return "f"
 
-        final_data = model_preprocessing(features, df_coord, main_df)
-        
-        load_model = pickle.load(open('model.pkl','rb'))
-        prediction = load_model.predict(final_data)
+            data = [{'host_response_rate': main_df ['host_response_rate'].median(),
+            'host_acceptance_rate': main_df ['host_acceptance_rate'].median(),
+            'host_listings_count': main_df ['host_listings_count'].median(),
+            'host_total_listings_count': main_df ['host_total_listings_count'].median(),
+            'latitude': latitude,
+            'longitude': longitude,
+            'accommodates': guests,
+            'bathrooms': bathrooms,
+            'bathrooms_type': bathrooms_type.lower(),
+            'bedrooms': bedrooms,
+            'beds': beds,
+            'minimum_nights_avg_ntm': min_night,
+            'maximum_nights_avg_ntm': max_night,
+            'availability_30': availability,
+            'availability_60': availability*2,
+            'availability_90': availability*3,
+            'availability_365': availability*12,
+            'number_of_reviews': main_df ["number_of_reviews"].median(),
+            'number_of_reviews_ltm': main_df ["number_of_reviews_ltm"].median(),
+            'review_scores_rating': main_df ["review_scores_rating"].mean(),
+            'review_scores_accuracy': main_df ["review_scores_accuracy"].mean(),
+            'review_scores_cleanliness': main_df ["review_scores_cleanliness"].mean(),
+            'review_scores_checkin': main_df ["review_scores_checkin"].mean(),
+            'review_scores_communication': main_df ["review_scores_communication"].mean(),
+            'review_scores_location': main_df ["review_scores_location"].mean(),
+            'review_scores_value': main_df ["review_scores_value"].mean(),
+            'calculated_host_listings_count': main_df ["calculated_host_listings_count"].median(),
+            'reviews_per_month': main_df ["reviews_per_month"].median(),
+            'property_type': property_type.lower(),
+            'room_type': room_type,
+            'instant_bookable': instant_bookable_return(),
+            'amenities': amenities,
+            'city': city}]
 
-        st.header("Rental Features")
-        col1, col2, col3 = st.columns(3)
-        col1.subheader(f"City: {city}")
-        col2.subheader(f"Property Type: {property_type}")
-        col3.subheader(f"Room Type: {room_type}")
-        col1.subheader(f"Bedrooms: {bedrooms}")
-        col2.subheader(f"Bathrooms: {bathrooms} {bathrooms_type} bathroom(s)")
-        col3.subheader("Amenities: "+f"{amenities}".strip("[]"))
+            features = pd.DataFrame(data)
 
-        st.write("----------------")
-        
-        col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
-        col1.metric(label="Rental Price", value=(str(int(prediction))+"€/day"))
-        col2.title("+")
-        col3.metric(label="Cleaning Fee", value=(str(cleaning_fee)+"€"))
-        col4.title("+")
-        col5.metric(label="Security Deposit", value=(str(security_deposit)+"€"))
-        col6.title("=")
-        col7.metric(label="Total Price", value=(str(int(prediction) + cleaning_fee + security_deposit)+"€"))
+            final_data = model_preprocessing(features, df_coord, main_df)
 
-        st.write("----------------")
-        st.map(features[["latitude","longitude"]])
+            load_model = pickle.load(open('model.pkl','rb'))
+            prediction = load_model.predict(final_data)
+
+            st.header("Rental Features")
+            col1, col2, col3 = st.columns(3)
+            col1.subheader(f"City: {city}")
+            col2.subheader(f"Property Type: {property_type}")
+            col3.subheader(f"Room Type: {room_type}")
+            col1.subheader(f"Bedrooms: {bedrooms}")
+            col2.subheader(f"Bathrooms: {bathrooms} {bathrooms_type} bathroom(s)")
+            col3.subheader("Amenities: "+f"{amenities}".strip("[]"))
+
+            st.write("----------------")
+
+            col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+            col1.metric(label="Rental Price", value=(str(int(prediction))+"€/day"))
+            col2.title("+")
+            col3.metric(label="Cleaning Fee", value=(str(cleaning_fee)+"€"))
+            col4.title("+")
+            col5.metric(label="Security Deposit", value=(str(security_deposit)+"€"))
+            col6.title("=")
+            col7.metric(label="Total Price", value=(str(int(prediction) + cleaning_fee + security_deposit)+"€"))
+
+            st.write("----------------")
+            st.map(features[["latitude","longitude"]])
+        except:
+            st.write("Please choose a location")
 main()
