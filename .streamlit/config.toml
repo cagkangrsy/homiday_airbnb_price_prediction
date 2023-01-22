@@ -16,3 +16,7 @@ textColor = '#123f43'
 # Accepted values (serif | sans serif | monospace) 
 # Default: "sans serif"
 font = "sans serif"
+
+[client]
+ 
+showErrorDetails = false
