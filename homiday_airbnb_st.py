@@ -1,24 +1,9 @@
 import numpy as np
 import pandas as pd
-#import matplotlib.pyplot as plt
-#import seaborn as sns
 import streamlit as st
 from streamlit_folium import st_folium
 import folium as fl
 from folium.plugins import MousePosition
-#import pydeck as pdk
-#import pyperclip as clp
-#import easydev
-#import warnings
-#import lightgbm as lgb
-#from lightgbm import LGBMRegressor
-#from sklearn.exceptions import ConvergenceWarning
-#import sklearn.metrics
-#from sklearn.metrics import mean_absolute_error
-#from sklearn.model_selection import cross_validate
-#from sklearn.model_selection import train_test_split, cross_val_score,GridSearchCV
-#from sklearn.metrics import r2_score, mean_squared_error
-#from sklearn import model_selection, preprocessing, metrics
 import pickle
 
 from Helpers.model_preprocessing import *
