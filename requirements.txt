@@ -1,0 +1,12 @@
+numpy 
+pandas
+streamlit
+streamlit_folium
+folium
+pickle
+matplotlib.pyplot
+seaborn
+warnings
+re
+datetime
+sklearn.preprocessing 
