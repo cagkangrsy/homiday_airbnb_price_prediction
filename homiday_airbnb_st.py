@@ -90,8 +90,9 @@ def main ():
     try:
         latitude, longitude = get_pos(map1['last_clicked']['lat'],map1['last_clicked']['lng'])
         data1 = (latitude,longitude)
-    except:
-        
+    except TypeError: 'NoneType' object is not subscriptable:
+        pass
+    
     formatter = "function(num) {return L.Util.formatNum(num, 3) + ' ° ';};"
 
     MousePosition(
