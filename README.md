@@ -4,5 +4,5 @@ HOMIDAY is an AirBNB price prediction system built on data from 18 cities in Eur
 You can get a price prediction for your listing according to various different factors.
 
 ### Website
- [website](https://homiday.streamlit.app/)
+ [HOMIDAY](https://homiday.streamlit.app/)  
  Note: There is a warning present when the site is opened. It goes away by simply clicking on the map. It appears because the location system needs an inital click on the map.
