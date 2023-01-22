@@ -87,9 +87,11 @@ def main ():
     
     map1 = st_folium(m, height=350, width=700)
     
-    latitude, longitude = get_pos(map1['last_clicked']['lat'],map1['last_clicked']['lng'])
-    data1 = (latitude,longitude)
-
+    try:
+        latitude, longitude = get_pos(map1['last_clicked']['lat'],map1['last_clicked']['lng'])
+        data1 = (latitude,longitude)
+    except:
+        
     formatter = "function(num) {return L.Util.formatNum(num, 3) + ' ° ';};"
 
     MousePosition(
