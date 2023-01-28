@@ -5,4 +5,3 @@ You can get a price prediction for your listing according to various different f
 
 ### Website
  [HOMIDAY](https://homiday.streamlit.app/)  
- Note: There is a warning present when the site is opened. It goes away by simply clicking on the map. It appears because the location system needs an inital click on the map.
